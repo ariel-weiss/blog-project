@@ -15,13 +15,16 @@ app.use(cors());
 
 // Routs:
 app.use('/posts', postRoutes.router);
+app.get('/', (req, res) => { 
+    res.send('Hello from blog API');
+});
 
 const CONNECTION_URL = process.env.CONNECTION_URL;
-const PORT = process.env.PORT || 5000;
+const PORT = (process.env.PORT || 5000);
 
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
+    .then(() => app.listen(PORT,'0.0.0.0', () => console.log(`Server running on port ${PORT}`)))
     .catch((err) => console.error(err));
 
 mongoose.set('useFindAndModify', false); 
